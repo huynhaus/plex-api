@@ -1,11 +1,13 @@
 package com.plex.album;
 
+import com.plex.server.models.Directory;
+import com.plex.server.models.MediaContainer;
+import com.plex.server.models.PlexResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,24 +21,28 @@ public class PlexAlbumService {
     private String plexHostUrl;
 
     private final RestTemplate restTemplate;
+    private final AlbumMapper albumMapper;
 
     /**
      * Constructor to inject dependencies.
      *
      * @param restTemplate the {@link RestTemplate}
      */
-    public PlexAlbumService(RestTemplate restTemplate) {
+    public PlexAlbumService(RestTemplate restTemplate, AlbumMapper albumMapper) {
         this.restTemplate = restTemplate;
+        this.albumMapper = albumMapper;
     }
 
+    /**
+     * Gets a list of albums from Plex.
+     *
+     * @return the list of albums
+     */
     public List<Album> getAlbums() {
-
-        final String test = this.restTemplate
-            .getForEntity(this.plexHostUrl + "/library/sections/1/all", String.class)
+        final PlexResponse response = this.restTemplate
+            .getForEntity(this.plexHostUrl + "/library/sections", PlexResponse.class)
             .getBody();
 
-        log.error(test);
-
-        return new ArrayList<>();
+        return this.albumMapper.map(response.getMediaContainer().getDirectories());
     }
 }

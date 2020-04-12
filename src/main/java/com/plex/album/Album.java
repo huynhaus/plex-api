@@ -9,5 +9,6 @@ import lombok.Data;
 public class Album {
     private int id;
     private String title;
+    private String type;
     private String thumbnailUrl;
 }

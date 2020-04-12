@@ -53,8 +53,6 @@ public class PlexRequestInterceptor implements ClientHttpRequestInterceptor {
             }
         };
 
-        log.error(modifiedRequest.getURI().toString());
-
         return execution.execute(modifiedRequest, body);
     }
 }
