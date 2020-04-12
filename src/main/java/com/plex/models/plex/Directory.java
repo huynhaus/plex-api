@@ -1,4 +1,4 @@
-package com.plex.server.models;
+package com.plex.models.plex;
 
 import lombok.Data;
 
