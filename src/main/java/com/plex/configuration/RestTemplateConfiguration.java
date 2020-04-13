@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
@@ -31,6 +32,11 @@ public class RestTemplateConfiguration {
             .setConnectTimeout(TIMEOUT)
             .setReadTimeout(TIMEOUT)
             .interceptors(new PlexRequestInterceptor(this.authToken))
+            .additionalMessageConverters(this.byteArrayHttpMessageConverter())
             .build();
+    }
+
+    @Bean public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
+        return new ByteArrayHttpMessageConverter();
     }
 }

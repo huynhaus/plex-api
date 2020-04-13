@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class Media {
     private int id;
+    private String key;
     private String title;
     private String summary;
     private String type;

@@ -69,6 +69,7 @@ public class LibraryMapper {
     public Media mapMedia(MetaData metaData, int albumId) {
         final Media media = new Media();
         media.setId(metaData.getMediaList().get(0).getId());
+        media.setKey(metaData.getMediaList().get(0).getParts().get(0).getKey());
         media.setTitle(metaData.getTitle());
         media.setSummary(metaData.getSummary());
         media.setType(metaData.getType());

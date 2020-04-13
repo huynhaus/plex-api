@@ -30,6 +30,6 @@ public class LibraryController {
      */
     @GetMapping("library")
     public Library getAllAlbums() {
-        return this.libraryService.retrieveLibrary();
+        return this.libraryService.getLibrary();
     }
 }
