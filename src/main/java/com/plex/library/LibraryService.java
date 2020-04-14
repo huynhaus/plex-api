@@ -13,14 +13,17 @@ import org.springframework.stereotype.Service;
 public class LibraryService {
 
     private PlexLibraryService plexLibraryService;
+    private MediaTitleProcessor mediaTitleProcessor;
 
     /**
      * Constructor to inject dependencies.
      *
      * @param plexLibraryService the {@link PlexLibraryService}
+     * @param mediaTitleProcessor the {}
      */
-    public LibraryService(PlexLibraryService plexLibraryService) {
+    public LibraryService(PlexLibraryService plexLibraryService, MediaTitleProcessor mediaTitleProcessor) {
         this.plexLibraryService = plexLibraryService;
+        this.mediaTitleProcessor = mediaTitleProcessor;
     }
 
     /**
@@ -30,13 +33,15 @@ public class LibraryService {
      */
     @Cacheable("library-cache")
     public Library getLibrary() {
-        return this.plexLibraryService.getLibrary();
+        final Library library = this.plexLibraryService.getLibrary();
+        this.mediaTitleProcessor.process(library);
+        return library;
     }
 
     /**
      * Gets a specific {@link Media}.
      *
-     * @param albumId the album id
+     * @param albumId the album i
      * @param mediaId the media id
      * @return the media
      */

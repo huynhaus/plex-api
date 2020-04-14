@@ -40,7 +40,6 @@ public class LibraryMapper {
         album.setId(directory.getKey());
         album.setTitle(directory.getTitle());
         album.setType(directory.getType());
-        album.setThumbnailUrl(directory.getThumb());
         return album;
     }
 

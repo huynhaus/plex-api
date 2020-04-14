@@ -48,6 +48,9 @@ public class PlexLibraryService {
 
         for (Album album: library.getAlbums()) {
             album.setMediaList(this.getAllMedia(album.getId()));
+            if (!album.getMediaList().isEmpty()) {
+                album.setCoverImageUrl("/albums/" + album.getId() + "/medias/" + album.getMediaList().get(0).getId());
+            }
         }
 
         return library;
